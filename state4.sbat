@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH --job-name=state             ## Name of the job for the scheduler
+#SBATCH --time=10:00:00                      ## Walltime
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=8G                     ## Memory requested per node
+#SBATCH --array=1-20
+#SBATCH --mail-user=xuelingu@umich.edu  ## send email notifications to umich email listed
+#SBATCH --mail-type=FAIL,END           ## when to send email (standard values are:
+                                       ## NONE, BEGIN, END, FAIL, REQUEUE, ALL.
+                                       ## (See documentation for others)
+
+date
+R CMD BATCH --no-save --no-restore state.R state_$SLURM_ARRAY_TASK_ID.Rout
+date
+
